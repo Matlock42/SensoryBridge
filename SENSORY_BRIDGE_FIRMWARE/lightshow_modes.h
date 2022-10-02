@@ -178,7 +178,7 @@ void tempo_sine_mode(float vel) {
     rising = true;
   }
 
-  for (uint8_t i = 0; i < 128; i++) {
+  for (uint8_t i = 0; i < NUM_LEDS; i++) {
     leds[i].r *= 0.95;
     leds[i].g *= 0.95;
     leds[i].b *= 0.95;
@@ -225,7 +225,7 @@ void tempo_orbs_mode(float vel) { // secondary function to tempo_sine_mode
   }
   tempo_animation_frame++;
 
-  for (uint8_t i = 0; i < 128; i++) {
+  for (uint8_t i = 0; i < NUM_LEDS; i++) {
     leds[i].r *= 0.8;
     leds[i].g *= 0.8;
     leds[i].b *= 0.8;

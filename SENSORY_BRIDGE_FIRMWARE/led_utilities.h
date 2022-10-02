@@ -90,7 +90,7 @@ float truncate_float(float input) {
 
 void interpolate_scale_leds(float scale) {
   scale = 1.0 / scale; // inverse multiplication of scale (2.0 -> 0.5, 4.0 -> 0.25)
-  for (uint16_t i = 0; i < 128; i++) {
+  for (uint16_t i = 0; i < NUM_LEDS; i++) {
     float index_f = i / 127.0;
     CRGB out_val = lerp_led(index_f * scale, leds);
     leds_temp[i] = out_val;
@@ -100,8 +100,8 @@ void interpolate_scale_leds(float scale) {
 
 
 void flip_image() {
-  for (uint8_t i = 0; i < 128; i++) {
-    leds_temp[127 - i] = leds[i];
+  for (uint8_t i = 0; i < NUM_LEDS; i++) {
+    leds_temp[NUM_LEDS - i] = leds[i];
   }
   load_leds_from_temp();
 }
@@ -153,12 +153,12 @@ void shift_leds_down(uint16_t offset) {
 
 void fade_edge(bool symmetry) {
   save_leds_to_temp();
-  for (int16_t i = 0; i < 32; i++) {
+  for (int16_t i = 0; i < NUM_LEDS/4; i++) {
     float prog = i / 31.0;
 
-    leds_temp[127 - i].r *= prog;
-    leds_temp[127 - i].g *= prog;
-    leds_temp[127 - i].b *= prog;
+    leds_temp[NUM_LEDS - i].r *= prog;
+    leds_temp[NUM_LEDS - i].g *= prog;
+    leds_temp[NUM_LEDS - i].b *= prog;
 
     if (symmetry) {
       leds_temp[i].r *= prog;
@@ -171,9 +171,9 @@ void fade_edge(bool symmetry) {
 
 
 void mirror_image_upwards() {
-  for (uint8_t i = 0; i < 64; i++) {
+  for (uint8_t i = 0; i < NUM_LEDS/2; i++) {
     leds_temp[i]       = leds[i];
-    leds_temp[127 - i] = leds[i];
+    leds_temp[NUM_LEDS - i] = leds[i];
   }
   load_leds_from_temp();
 }

@@ -1,8 +1,8 @@
-#include <driver/adc.h>
+//#include <driver/adc.h>
 
-void read_config();
+//void read_config();
 void load_dc_offset();
-void write_config();
+//void write_config();
 void write_dc_offset();
 
 void print_system_info() {
@@ -74,15 +74,15 @@ void init_bridge() {
     Serial.flush();
   }
 
-  if (!LittleFS.begin(true)) { // Format if failed
+  /*if (!LittleFS.begin(true)) { // Format if failed
     if (debug_mode) {
       Serial.println("LittleFS Mount Failed");
     }
     return;
-  }
+  }*/
 
-  read_config();
-  load_dc_offset();
+  //read_config();
+  //load_dc_offset();
 
   // Uncomment/edit one of the following lines for your led strip type.
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(leds_out, STRIP_LED_COUNT);  // GRB ordering is assumed
@@ -104,21 +104,21 @@ void init_bridge() {
     fft_ambient_noise[i] = 0;
   }
 
-  load_ambient_noise_calibration();
+  //load_ambient_noise_calibration();
 
-  adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_11db);
-  adc1_config_channel_atten(ADC1_CHANNEL_1, ADC_ATTEN_11db);
+  //adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_11db);
+  //adc1_config_channel_atten(ADC1_CHANNEL_1, ADC_ATTEN_11db);
 
-  ledcSetup(0, 500, 12);
-  ledcAttachPin(SWEET_SPOT_LEFT_PIN, 0);
+  //ledcSetup(0, 500, 12);
+  //ledcAttachPin(SWEET_SPOT_LEFT_PIN, 0);
 
-  ledcSetup(1, 500, 12);
-  ledcAttachPin(SWEET_SPOT_CENTER_PIN, 1);
+  //ledcSetup(1, 500, 12);
+  //ledcAttachPin(SWEET_SPOT_CENTER_PIN, 1);
 
-  ledcSetup(2, 500, 12);
-  ledcAttachPin(SWEET_SPOT_RIGHT_PIN, 2);
+  //ledcSetup(2, 500, 12);
+  //ledcAttachPin(SWEET_SPOT_RIGHT_PIN, 2);
 
-  INIT_I2S();
+  //INIT_I2S();
 }
 
 void log_fps() {
@@ -146,8 +146,8 @@ void check_buttons() {
       for (uint16_t i = 0; i < 128; i++) {
         fft_ambient_noise[i] = 0;
       }
-      save_dc_offset();
-      save_ambient_noise_calibration();
+      //save_dc_offset();
+      //save_ambient_noise_calibration();
       if (debug_mode) {
         Serial.println("CLEARED AMBIENT NOISE CALIBRATION!");
       }
@@ -225,7 +225,7 @@ void check_settings() {
   if (settings_updated) {
     uint32_t t_now = millis();
     if (t_now - last_setting_change >= 3000) {
-      write_config();
+      //write_config();
       settings_updated = false;
     }
   }
@@ -343,9 +343,9 @@ void check_sweet_spot() {
     sweet_spot_up = 10;
   }
 
-  ledcWrite(0, sweet_spot_down  );
-  ledcWrite(1, sweet_spot_center);
-  ledcWrite(2, sweet_spot_up    );
+  //ledcWrite(0, sweet_spot_down  );
+  //ledcWrite(1, sweet_spot_center);
+  //ledcWrite(2, sweet_spot_up    );
 }
 
 void check_serial() {
@@ -373,7 +373,7 @@ void check_serial() {
         for (uint16_t i = 0; i < 128; i++) {
           fft_ambient_noise[i] = 0;
         }
-        save_ambient_noise_calibration();
+        //save_ambient_noise_calibration();
         Serial.println("CLEARED AMBIENT NOISE CALIBRATION!");
       }
       else if (strcmp(command_buf, "FIRMWARE_VERSION") == 0) {
@@ -416,7 +416,7 @@ void end_timing() {
 #endif
 }
 
-void read_config() {
+/*void read_config() {
   File file = LittleFS.open("/config.bin", FILE_READ);
   if (!file) {
     if (debug_mode) {
@@ -434,9 +434,9 @@ void read_config() {
     }
   }
   file.close();
-}
+}*/
 
-void write_config() {
+/*void write_config() {
   File file = LittleFS.open("/config.bin", FILE_WRITE);
   if (!file) {
     if (debug_mode) {
@@ -454,4 +454,4 @@ void write_config() {
     }
   }
   file.close();
-}
+}*/

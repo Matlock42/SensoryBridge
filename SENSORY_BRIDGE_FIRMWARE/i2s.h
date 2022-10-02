@@ -1,6 +1,7 @@
-#include <driver/i2s.h>
+//#include <driver/i2s.h>
+#include <Adafruit_CircuitPlayground.h>
 
-const i2s_config_t i2s_config = {
+/*const i2s_config_t i2s_config = {
   .mode = i2s_mode_t(I2S_MODE_MASTER | I2S_MODE_RX),
   .sample_rate = SAMPLE_RATE,
   .bits_per_sample = I2S_BITS_PER_SAMPLE_32BIT,
@@ -16,10 +17,10 @@ const i2s_pin_config_t pin_config = {
   .ws_io_num    = I2S_LRCLK_PIN,
   .data_out_num = -1, // not used (only for outputs)
   .data_in_num  = I2S_DOUT_PIN
-};
+};*/
 
 // Init I2S with some changes to increase proper support for our mic
-void INIT_I2S() {
+/*void INIT_I2S() {
   esp_err_t err = i2s_driver_install(I2S_PORT, &i2s_config, 0, NULL);
   if (err != ESP_OK) {
     if (debug_mode) {
@@ -41,7 +42,7 @@ void INIT_I2S() {
   if (debug_mode) {
     Serial.println("I2S driver installed.");
   }
-}
+}*/
 
 void capture_audio() {
   i2s_history_index++;
@@ -49,8 +50,12 @@ void capture_audio() {
     i2s_history_index = 0;
   }
 
-  i2s_read(I2S_PORT, i2s_samples_raw, BUFFER_SIZE * 4, &bytes_read, portMAX_DELAY);
+  //i2s_read(I2S_PORT, i2s_samples_raw, BUFFER_SIZE * 4, &bytes_read, portMAX_DELAY);
+  int16_t mic_samples[BUFFER_SIZE];
+  CircuitPlayground.mic.capture(mic_samples, BUFFER_SIZE);
+  
   for (uint16_t i = 0; i < BUFFER_SIZE; i++) {
+    i2s_samples_raw[i] = mic_samples[i]; // convert 16bit to 32bit
     (i2s_samples[i2s_history_index][i] = (((i2s_samples_raw[i] / 1000000.0) + 110) * 128) + 3000)*4;
 
     if (i2s_samples[i2s_history_index][i] > 32767) {

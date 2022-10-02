@@ -35,7 +35,7 @@ void show_progress_bar(float progress, CRGB col) {
   show_leds();
 }
 
-void load_ambient_noise_calibration() {
+/*void load_ambient_noise_calibration() {
   if (debug_mode) {
     Serial.println("LOADING AMBIENT_NOISE PROFILE...");
   }
@@ -73,9 +73,9 @@ void load_ambient_noise_calibration() {
   if (debug_mode) {
     Serial.println("LOAD COMPLETE");
   }
-}
+}*/
 
-void load_dc_offset() {
+/*void load_dc_offset() {
   if (debug_mode) {
     Serial.println("LOADING DC OFFSET...");
   }
@@ -101,9 +101,9 @@ void load_dc_offset() {
   if (debug_mode) {
     Serial.println("LOAD COMPLETE");
   }
-}
+}*/
 
-void save_ambient_noise_calibration() {
+/*void save_ambient_noise_calibration() {
   if (debug_mode) {
     Serial.println("SAVING AMBIENT_NOISE PROFILE...");
   }
@@ -143,9 +143,9 @@ void save_ambient_noise_calibration() {
   if (debug_mode) {
     Serial.println("SAVE COMPLETE");
   }
-}
+}*/
 
-void save_dc_offset() {
+/*void save_dc_offset() {
   if (debug_mode) {
     Serial.println("SAVING DC OFFSET...");
   }
@@ -171,7 +171,7 @@ void save_dc_offset() {
   if (debug_mode) {
     Serial.println("SAVE COMPLETE");
   }
-}
+}*/
 
 void run_ambient_noise_calibration() {
   if (ambient_noise_samples_collected < AMBIENT_NOISE_SAMPLES) {
@@ -197,7 +197,7 @@ void run_ambient_noise_calibration() {
       Serial.println("AMBIENT NOISE COLLECTION COMPLETE.");
     }
 
-    save_ambient_noise_calibration();
-    save_dc_offset();
+    //save_ambient_noise_calibration();
+    //save_dc_offset();
   }
 }

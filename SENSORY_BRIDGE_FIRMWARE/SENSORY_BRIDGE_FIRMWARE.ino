@@ -1,8 +1,7 @@
 #define FIRMWARE_VERSION "1.1.0"
 
 #include <FastLED.h>
-#include <FS.h>
-#include <LittleFS.h>
+#include <Adafruit_CircuitPlayground.h>
 
 enum lightshow_modes {
   DUET_MODE,
@@ -30,9 +29,9 @@ void setup() {
 }
 
 void loop() {
-  check_knobs();
+  //check_knobs();
   check_buttons();
-  check_sweet_spot();
+  //check_sweet_spot();
   check_serial();
   check_settings();
 
